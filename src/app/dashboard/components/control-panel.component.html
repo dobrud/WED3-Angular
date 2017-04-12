@@ -1,3 +1,66 @@
-<p>
-  control-panel works!
-</p>
+<div class="columns">
+  <div class="column is-one-third">
+    <div class="box">
+    <h2 class="title is-4">New Transaction</h2>
+      <div class="field">
+        <label class="label">From</label>
+        <p class="control">
+          <input class="input" disabled>
+        </p>
+      </div>
+      <div class="field">
+        <label class="label">To</label>
+        <p class="control">
+          <input class="input"  placeholder="Target Account Number" type="number" name="targetAccount">
+        </p>
+        <p class="help">Please specify the target account number</p>
+      </div>
+      <div class="field">
+        <label class="label">Amount [CHF]</label>
+        <p class="control">
+          <input class="input"  placeholder="Amount in CHF" type="number" name="targetAccount">
+        </p>
+        <p class="help">Please specify the amount</p>
+      </div>
+      <button class="button is-info">Send</button>
+    </div>
+  </div>
+  <div class="column is-two-thirds">
+    <div class="box no-shadow">
+      <h2 class="title is-4">Latest Transactions</h2>
+      <table class="table is-striped">
+        <thead>
+          <tr>
+            <th>
+              Source
+            </th>
+            <th>
+              Target
+            </th>
+            <th>
+              Amount [CHF]
+            </th>
+            <th>
+              Balance [CHF]
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1000004</td>
+            <td>1000001</td>
+            <td>-50.00</td>
+            <td>950</td>
+          </tr>
+          <tr>
+            <td>0000000</td>
+            <td>1000004</td>
+            <td>1,000.00</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="button is-info" routerLink="/dashboard/transactions">All Transactions</button>
+    </div>
+  </div>
+</div>
