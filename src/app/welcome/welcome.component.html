@@ -1,2 +1,41 @@
-TODO: implement your components / html logic here...
-<router-outlet></router-outlet>
+<nav class="nav">
+  <div class="container">
+  <div class="nav-left">
+    <a class="nav-item" style="font-size:1.5em;">
+      💰💰💰 🤑
+    </a>
+  </div>
+  <div class="nav-center">
+    <a class="nav-item">
+      <span class="icon">
+        <i class="fa fa-github"></i>
+      </span>
+    </a>
+    <a class="nav-item">
+      <span class="icon">
+        <i class="fa fa-twitter"></i>
+      </span>
+    </a>
+  </div>
+
+  <span class="nav-toggle" onClick="var menu = document.querySelector('.nav-right.nav-menu'); menu.classList.toggle('is-active');">
+    <span></span>
+    <span></span>
+    <span></span>
+  </span>
+
+  <div class="nav-right nav-menu">
+    <a class="nav-item" routerLink="/welcome">
+      Home
+    </a>
+    <a class="nav-item" routerLink="/welcome/register">
+    <span class="button is-info">
+      Register
+    </span>
+    </a>
+  </div>
+  </div>
+</nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

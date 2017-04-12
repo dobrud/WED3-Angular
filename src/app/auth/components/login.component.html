@@ -1,18 +1,20 @@
 <!-- TODO: Add ng2 specific directives/validation settings and add styling -->
-<form (ngSubmit)="doLogin(loginForm)" #loginForm="ngForm">
-  <div>
-    User name:
-    <div>
-      <input pattern=".{3,}" placeholder="User" type="text" name="username" [(ngModel)]="username" />
-      <div>Please specify your login, at least three characters.</div>
+<div class="column is-half is-offset-one-quarter">
+  <form (ngSubmit)="doLogin(loginForm)" #loginForm="ngForm">
+    <div class="field">
+      <label class="label">Username</label>
+      <p class="control">
+        <input class="input" [class.is-danger]="!username.valid&&username.dirty" pattern=".{3,}" placeholder="User" type="text" name="username" [(ngModel)]="loginInfo.login" #username="ngModel" required>
+      </p>
+      <p [class.is-hidden]="username.valid" [class.is-danger]="!username.valid&&username.dirty" class="help">Please specify your username, at least three characters</p>
     </div>
-  </div>
-  <div>
-    Password:
-    <div>
-      <input pattern=".{3,}" placeholder="Password" type="password" name="password" [(ngModel)]="password" />
-      <div>Please specify your login, at least three characters.</div>
+    <div class="field">
+      <label class="label">Password</label>
+      <p class="control">
+        <input class="input" [class.is-danger]="!password.valid&&password.dirty" pattern=".{3,}" placeholder="Password" type="password" name="password" [(ngModel)]="loginInfo.password" #password="ngModel" required>
+      </p>
+      <p [class.is-hidden]="password.valid" [class.is-danger]="!password.valid&&password.dirty" class="help">Please specify your password, at least three characters</p>
     </div>
-  </div>
-  <button>Login</button>
-</form>
+    <button [disabled]="!loginForm.valid" class="button is-info">Login</button>
+  </form>
+</div>
