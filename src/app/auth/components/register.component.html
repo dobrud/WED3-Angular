@@ -33,9 +33,9 @@
     <div class="field">
       <label class="label">Confirm Password</label>
       <p class="control">
-        <input class="input" [class.is-danger]="!cp.valid&&cp.dirty" pattern=".{3,}" placeholder="Password" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" #cp="ngModel" required>
+        <input class="input" [class.is-danger]="(!cp.valid&&cp.dirty)||(cp.dirty&&cp.value!=password.value)" pattern=".{3,}" placeholder="Password" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" #cp="ngModel" required>
       </p>
-      <p [class.is-hidden]="cp.valid" [class.is-danger]="!cp.valid&&cp.dirty" class="help">Please confirm your password</p>
+      <p [class.is-hidden]="cp.valid&&cp.value==password.value" [class.is-danger]="(!cp.valid&&cp.dirty)||(cp.dirty&&cp.value!=password.value)" class="help">Please confirm your password</p>
     </div>
     <button [disabled]="!registerationForm.valid" class="button is-info">Register</button>
   </form>
