@@ -4,7 +4,8 @@ import {SharedModule} from "../shared/shared.module";
 
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {DashboardComponent} from './dashboard.component';
-import {DashboardAuthGuard} from './dashboard-auth-guard.service';
+import {DashboardAuthGuard} from './services';
+import { AuthModule } from '../auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import {DashboardAuthGuard} from './dashboard-auth-guard.service';
   ],
   imports: [
     // Other Modules to import (imports the exported Components/Directives from the other module)
-    SharedModule, DashboardRoutingModule
+    SharedModule, DashboardRoutingModule, AuthModule
   ],
   exports: [
     // Components/Directives (or even Modules) to export (available for other modules; and forRoot() )
