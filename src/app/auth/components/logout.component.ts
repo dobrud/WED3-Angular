@@ -14,20 +14,20 @@ export class LogoutComponent implements OnInit {
 
   public user:Account;
 
-  constructor(private autSvc:AuthService, private navigationSvc: NavigationService, route: ActivatedRoute) {
+  constructor(private authService:AuthService, private navigationService: NavigationService, route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.user = this.autSvc.authenticatedUser;
-    this.autSvc.authenticatedUserChange.subscribe(
+    this.user = this.authService.authenticatedUser;
+    this.authService.authenticatedUserChange.subscribe(
       (credentials) => {
         if (!credentials) {
-          this.navigationSvc.goToHome();
+          this.navigationService.goToHome();
         }
       });
   }
 
   public doLogout() {
-    this.autSvc.logout();
+    this.authService.logout();
   }
 }
