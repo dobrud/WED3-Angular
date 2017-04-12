@@ -43,8 +43,6 @@ export class RegisterComponent implements OnInit {
 
   public doRegister(f: NgForm):boolean {
     if (f.valid && this.password === this.passwordConfirm) {
-      console.log(this.firstName);
-
       this.isProcessing = true;
       this.autSvc.register(new RegistrationInfo(
         this.username,
