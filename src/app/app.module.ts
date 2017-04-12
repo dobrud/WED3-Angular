@@ -11,6 +11,7 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {AuthModule} from "./auth/auth.module";
 
+import { DashboardAuthGuard } from './dashboard/dashboard-auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import {AuthModule} from "./auth/auth.module";
     AppRoutingModule
   ],
   providers: [
-
+    DashboardAuthGuard
   ],
   bootstrap: [AppComponent]
 })
