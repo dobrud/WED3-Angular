@@ -16,13 +16,17 @@ export class LoginComponent implements OnInit {
 
   private backUrl;
 
-  public login:string;
+  public username:string;
   public password:string;
 
   public isProcessing:boolean = false;
 
   constructor(private autSvc:AuthService, private navigationSvc: NavigationService, route: ActivatedRoute) {
     route.params.subscribe((p:Params) => this.backUrl = p["backUrl"]);
+
+    // This part is for DX only, so you don't have to fill in the form every time
+    this.username = "hmayer";
+    this.password = "abc";
   }
 
   ngOnInit() {
@@ -43,7 +47,7 @@ export class LoginComponent implements OnInit {
   public doLogin(f: NgForm):boolean {
     if (f.valid) {
       this.isProcessing = true;
-      this.autSvc.login(new LoginInfo(f.value.login, f.value.password));
+      this.autSvc.login(new LoginInfo(this.username, this.password));
     }
     return false;
   }
