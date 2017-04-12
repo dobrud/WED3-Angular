@@ -1,0 +1,30 @@
+<nav class="nav">
+  <div class="container">
+  <div class="nav-left">
+    <a class="nav-item" style="font-size:1.5em;">
+      💰💰💰 🤑
+    </a>
+  </div>
+
+  <span class="nav-toggle" onClick="var menu = document.querySelector('.nav-right.nav-menu'); menu.classList.toggle('is-active');">
+    <span></span>
+    <span></span>
+    <span></span>
+  </span>
+
+  <div class="nav-right nav-menu">
+    <a class="nav-item" routerLink="/dashboard">
+      Home
+    </a>
+    <a class="nav-item" routerLink="/dashboard/transactions">
+      Transactions
+    </a>
+    <a class="nav-item">
+      <wed-logout></wed-logout>
+    </a>
+  </div>
+  </div>
+</nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

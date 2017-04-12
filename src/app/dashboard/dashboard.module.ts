@@ -6,11 +6,14 @@ import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {DashboardComponent} from './dashboard.component';
 import {DashboardAuthGuard} from './services';
 import { AuthModule } from '../auth/auth.module';
+import { ControlPanelComponent, TransactionListComponent } from './components';
 
 @NgModule({
   declarations: [
     // Declarations (Components / Directives) used from/within the Module
-    DashboardComponent
+    DashboardComponent,
+    ControlPanelComponent,
+    TransactionListComponent
   ],
   imports: [
     // Other Modules to import (imports the exported Components/Directives from the other module)
