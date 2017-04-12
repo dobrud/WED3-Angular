@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 
-/**
- * TODO: Add localStorage logic here...
- */
 @Injectable()
 export class SecurityTokenStore {
   private token:SecurityToken;
 
   constructor() {
+    let user: SecurityToken = JSON.parse(localStorage.getItem('user'));
+
+    if(user) {
+      this.token = user;
+    }
   }
 
   public get storedValue():SecurityToken {

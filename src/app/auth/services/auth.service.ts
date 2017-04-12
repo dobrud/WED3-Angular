@@ -40,6 +40,8 @@ export class AuthService {
         this.tokenStore.storedValue = data;
         this.authUser = !isBlank(data)? data.owner : null;
         this.authenticatedUserChange.emit(this.authenticatedUser);
+
+        localStorage.setItem('user', JSON.stringify(data));
       } );
   }
 
@@ -47,5 +49,7 @@ export class AuthService {
     this.tokenStore.storedValue = null;
     this.authUser = null;
     this.authenticatedUserChange.emit(null);
+
+    localStorage.removeItem('user');
   }
 }
