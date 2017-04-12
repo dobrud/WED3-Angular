@@ -14,14 +14,21 @@ import {RegistrationInfo} from "../models";
 })
 export class RegisterComponent implements OnInit {
 
-  public login:string;
   public password:string;
-  public firstname:string;
-  public lastname:string;
+  public passwordConfirm:string;
+  public firstName:string;
+  public lastName:string;
+  public username:string;
 
   public isProcessing:boolean = false;
 
   constructor(private autSvc:AuthService, private navigationSvc: NavigationService) {
+    // This part is for DX only, so you don't have to fill in the form every time
+    this.firstName = "Hans";
+    this.lastName = "Mayer"
+    this.username = "hmayer";
+    this.password = "abc";
+    this.passwordConfirm = "abc";
   }
 
   ngOnInit() {
@@ -35,13 +42,15 @@ export class RegisterComponent implements OnInit {
   }
 
   public doRegister(f: NgForm):boolean {
-    if (f.valid) {
+    if (f.valid && this.password === this.passwordConfirm) {
+      console.log(this.firstName);
+
       this.isProcessing = true;
       this.autSvc.register(new RegistrationInfo(
-        f.value.login,
-        f.value.password,
-        f.value.firstname,
-        f.value.lastname));
+        this.username,
+        this.password,
+        this.firstName,
+        this.lastName));
     }
     return false;
   }
