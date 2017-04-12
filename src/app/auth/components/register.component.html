@@ -1,39 +1,42 @@
-<!-- TODO: Add ng2 specific directives/validation settings and add styling -->
-<form (ngSubmit)="doRegister(registerForm)" #registerForm="ngForm">
-  <div>
-    First name:
-    <div>
-      <input pattern=".{2,}" placeholder="First name" type="text" name="firstName" [(ngModel)]="firstName" />
-      <div>Please specify your first name.</div>
+<div class="column is-half is-offset-one-quarter">
+  <form (ngSubmit)="doRegister(registerationForm)" #registerationForm="ngForm">
+    <div class="field">
+      <label class="label">First name</label>
+      <p class="control">
+        <input class="input" [class.is-danger]="!firstName.valid&&firstName.dirty" pattern=".{2,}" placeholder="First name" type="text" name="firstName" [(ngModel)]="registrationInfo.firstname" #firstName="ngModel" required>
+      </p>
+      <p [class.is-hidden]="firstName.valid" [class.is-danger]="!firstName.valid&&firstName.dirty" class="help">Please specify your first name</p>
     </div>
-  </div>
-  <div>
-    Last name:
-    <div>
-      <input pattern=".{2,}" placeholder="Last name" type="text" name="lastname" [(ngModel)]="lastName" />
-      <div>Please specify your last name.</div>
+    <div class="field">
+      <label class="label">Last name</label>
+      <p class="control">
+        <input class="input" [class.is-danger]="!lastName.valid&&lastName.dirty" pattern=".{2,}" placeholder="Last name" type="text" name="lastName" [(ngModel)]="registrationInfo.lastname" #lastName="ngModel" required>
+      </p>
+      <p [class.is-hidden]="lastName.valid" [class.is-danger]="!lastName.valid&&lastName.dirty" class="help">Please specify your last name</p>
     </div>
-  </div>
-  <div>
-    Username:
     <div>
-      <input pattern=".{3,}" placeholder="Username" type="text" name="username" [(ngModel)]="username" />
-      <div>Please specify your login, at least three characters.</div>
     </div>
-  </div>
-  <div>
-    Password:
-    <div>
-      <input pattern=".{3,}" placeholder="Password" type="password" name="password" [(ngModel)]="password" />
-      <div>Please specify your password, at least three characters.</div>
+    <div class="field">
+      <label class="label">Username</label>
+      <p class="control">
+        <input class="input" [class.is-danger]="!username.valid&&username.dirty" pattern=".{3,}" placeholder="Username" type="text" name="username" [(ngModel)]="registrationInfo.login" #username="ngModel" required>
+      </p>
+      <p [class.is-hidden]="username.valid" [class.is-danger]="!username.valid&&username.dirty" class="help">Please specify your login, at least three characters</p>
     </div>
-  </div>
-  <div>
-    Confirm Password:
-    <div>
-      <input pattern=".{3,}" placeholder="Password" type="password" name="passwordConfirm" [(ngModel)]="passwordConfirm" />
-      <div>Please confirm your password.</div>
+    <div class="field">
+      <label class="label">Password</label>
+      <p class="control">
+        <input class="input" [class.is-danger]="!password.valid&&password.dirty" pattern=".{3,}" placeholder="Password" type="password" name="password" [(ngModel)]="registrationInfo.password" #password="ngModel" required>
+      </p>
+      <p [class.is-hidden]="password.valid" [class.is-danger]="!password.valid&&password.dirty" class="help">Please specify your password, at least three characters</p>
     </div>
-  </div>
-  <button>Register</button>
-</form>
+    <div class="field">
+      <label class="label">Confirm Password</label>
+      <p class="control">
+        <input class="input" [class.is-danger]="!cp.valid&&cp.dirty" pattern=".{3,}" placeholder="Password" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" #cp="ngModel" required>
+      </p>
+      <p [class.is-hidden]="cp.valid" [class.is-danger]="!cp.valid&&cp.dirty" class="help">Please confirm your password</p>
+    </div>
+    <button [disabled]="!registerationForm.valid" class="button is-info">Register</button>
+  </form>
+</div>
