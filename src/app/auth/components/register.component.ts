@@ -19,18 +19,18 @@ export class RegisterComponent implements OnInit {
 
   public isProcessing:boolean = false;
 
-  constructor(private autSvc:AuthService, private navigationSvc: NavigationService) {
+  constructor(private authService: AuthService, private navigationService: NavigationService) {
     // This part is for DX only, so you don't have to fill in the form every time
     this.registrationInfo = new RegistrationInfo('hmayer', 'abc', 'Hans', 'Mayer');
     this.confirmPassword = 'abc';
   }
 
   ngOnInit() {
-    this.autSvc.authenticatedUserChange.subscribe(
+    this.authService.authenticatedUserChange.subscribe(
       (credentials) => {
         this.isProcessing = false;
         if (credentials) {
-          this.navigationSvc.goToDashboard();
+          this.navigationService.goToDashboard();
         }
       });
   }
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
   public doRegister(f: NgForm):boolean {
     if (f.valid && this.registrationInfo.password === this.confirmPassword) {
       this.isProcessing = true;
-      this.autSvc.register(this.registrationInfo);
+      this.authService.register(this.registrationInfo);
     }
     return false;
   }
