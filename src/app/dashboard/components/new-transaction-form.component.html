@@ -1,0 +1,96 @@
+<div class="box overlay-container">
+  <div class="overlay" [class.is-hidden]="!isProcessing">
+    <!-- Comments are just to fix whitespace with inline-block -->
+    <div class="Spinner"><!--
+    --><div class="Spinner-line Spinner-line--1"><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--left"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-ticker"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--center"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--right"></div><!--
+        --></div><!--
+    --></div><!--
+    --><div class="Spinner-line Spinner-line--2"><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--left"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-ticker"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--center"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--right"></div><!--
+        --></div><!--
+    --></div><!--
+    --><div class="Spinner-line Spinner-line--3"><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--left"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-ticker"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--center"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--right"></div><!--
+        --></div><!--
+    --></div><!--
+    --><div class="Spinner-line Spinner-line--4"><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--left"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-ticker"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--center"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--right"></div><!--
+        --></div><!--
+    --></div><!--
+
+--></div><!--/spinner -->
+</div>
+<div [class.is-hidden]="transferSuccessful">
+  <h2 class="title is-4">New Transaction</h2>
+  <form (ngSubmit)="doTransaction(transactionForm)" #transactionForm="ngForm">
+    <div class="field">
+      <label class="label">From</label>
+      <p class="control">
+        <input class="input" value="{{ownAccount?.accountNr}} [{{ownAccount?.amount}} CHF]" disabled>
+      </p>
+      <p class="help">Sender: {{ownAccount?.owner?.firstname}} {{ownAccount?.owner?.lastname}}</p>
+    </div>
+    <div class="field">
+      <label class="label">To</label>
+      <p class="control">
+        <input class="input" [class.is-danger]="target.dirty&&(!hasMinimumLength()||!isOtherAccount()||!validBankAccount)" pattern=".{7,}" min="1000000" max="9999999" step="1" placeholder="Target Account Number" type="number" name="target" [(ngModel)]="transactionInfo.target" (keyup)="isValidAccountNumber()" #target="ngModel" required>
+      </p>
+      <p class="help" [class.is-hidden]="target.dirty">Please specify the target account number</p>
+      <div [class.is-hidden]="target.pristine">
+        <p class="help" [class.is-danger]="!hasMinimumLength()" [class.is-hidden]="hasMinimumLength()">Target Account number must have at least 7 digits</p>
+        <p class="help" [class.is-danger]="!isOtherAccount()" [class.is-hidden]="isOtherAccount()||validBankAccount">You may not transact money to yourself</p>
+        <p class="help" [class.is-danger]="!validBankAccount" [class.is-hidden]="!isOtherAccount()||!hasMinimumLength()||validBankAccount">Unknown Account number specified</p>
+        <p class="help" [class.is-success]="validBankAccount" [class.is-hidden]="!validBankAccount">Recipient: {{targetAccount?.owner?.firstname}} {{targetAccount?.owner?.lastname}}</p>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Amount [CHF]</label>
+      <p class="control">
+        <input class="input" min="0.05" step="0.05" placeholder="Amount in CHF" type="number" name="amount" [(ngModel)]="transactionInfo.amount" #amount="ngModel" required>
+      </p>
+      <p class="help">Please specify the amount</p>
+    </div>
+    <p><button class="button is-info" [disabled]="!transactionForm.valid||!validBankAccount">Send</button></p>
+  </form>
+</div>
+<div [class.is-hidden]="!transferSuccessful">
+  <h2 class="title is-4">Transfer successful</h2>
+  <div class="notification is-success">
+    <button class="delete" (click)="newTransaction()"></button>
+    <div class="content">
+      Successfully transferred {{latestTransactionAmount}} CHF to {{latestTransactionTarget}}.
+
+      <p>Your new balance is {{ownAccount?.amount}} CHF.</p>
+    </div>
+    <p><button class="button is-white" (click)="newTransaction()">New Transaction</button></p>
+  </div>
+</div>
