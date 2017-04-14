@@ -6,14 +6,18 @@ import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {DashboardComponent} from './dashboard.component';
 import {DashboardAuthGuard} from './services';
 import { AuthModule } from '../auth/auth.module';
-import { ControlPanelComponent, TransactionListComponent } from './components';
+import { ControlPanelComponent, TransactionListComponent, NewTransactionFormComponent } from './components';
+import { RequestOptions } from '@angular/http';
+import { AuthRequestOptions } from '../auth/resources'
+import { SecurityTokenStore } from '../auth/services/credential-management'
 
 @NgModule({
   declarations: [
     // Declarations (Components / Directives) used from/within the Module
     DashboardComponent,
     ControlPanelComponent,
-    TransactionListComponent
+    TransactionListComponent,
+    NewTransactionFormComponent
   ],
   imports: [
     // Other Modules to import (imports the exported Components/Directives from the other module)
@@ -32,7 +36,11 @@ export class DashboardModule {
   static forRoot(config?:{}) : ModuleWithProviders {
     return {
       ngModule: DashboardModule,
-      providers: [ ]
+      providers: [ {
+          provide: RequestOptions,
+          useFactory: (tS) => new AuthRequestOptions(tS),
+          deps: [SecurityTokenStore]
+      }]
     };
   }
 
