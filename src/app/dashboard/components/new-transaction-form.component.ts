@@ -12,7 +12,9 @@ export class NewTransactionFormComponent implements OnInit {
   private transactionInfo: TransactionInfo;
   private targetAccount: BankAccount;
   private validBankAccount: boolean;
+  private validAmount: boolean;
   public transferSuccessful: boolean = false;
+  public transferFailed: boolean = false;
   public latestTransactionAmount: string;
   public latestTransactionTarget: string;
   public isProcessing: boolean = false;
@@ -58,6 +60,10 @@ export class NewTransactionFormComponent implements OnInit {
     );
   }
 
+  isValidAmount(): void {
+    this.validAmount = this.transactionInfo.amount <= this.ownAccount.amount;
+  }
+
   doTransaction(form: NgForm) {
     if (form.valid) {
       this.isProcessing = true;
@@ -69,8 +75,10 @@ export class NewTransactionFormComponent implements OnInit {
             this.latestTransactionTarget = this.transactionInfo.target;
             this.transactionDone.emit('reload account');
             form.resetForm();
-            this.isProcessing = false;
+          } else {
+            this.transferFailed = true;
           }
+          this.isProcessing = false;
         }
       );
     }
@@ -80,6 +88,7 @@ export class NewTransactionFormComponent implements OnInit {
 
   newTransaction() {
     this.transferSuccessful = false;
+    this.transferFailed = false;
     this.validBankAccount = false;
     this.targetAccount = null;
     this.transactionInfo = new TransactionInfo(null, null);

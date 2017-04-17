@@ -49,7 +49,7 @@
 
 --></div><!--/spinner -->
 </div>
-<div [class.is-hidden]="transferSuccessful">
+<div [class.is-hidden]="transferSuccessful||transferFailed">
   <h2 class="title is-4">New Transaction</h2>
   <form (ngSubmit)="doTransaction(transactionForm)" #transactionForm="ngForm">
     <div class="field">
@@ -75,11 +75,12 @@
     <div class="field">
       <label class="label">Amount [CHF]</label>
       <p class="control">
-        <input class="input" min="0.05" step="0.05" placeholder="Amount in CHF" type="number" name="amount" [(ngModel)]="transactionInfo.amount" #amount="ngModel" required>
+        <input class="input" [class.is-danger]="amount.dirty&&!validAmount" min="0.05" step="0.05" placeholder="Amount in CHF" type="number" name="amount" [(ngModel)]="transactionInfo.amount" (keyup)="isValidAmount()" #amount="ngModel" required>
       </p>
       <p class="help">Please specify the amount</p>
+      <p class="help" [class.is-danger]="!validAmount" [class.is-hidden]="amount.pristine||validAmount">You can not overdraw your account. Please check your amount.</p>
     </div>
-    <p><button class="button is-info" [disabled]="!transactionForm.valid||!validBankAccount">Send</button></p>
+    <p><button class="button is-info" [disabled]="!transactionForm.valid||!validBankAccount||!validAmount">Send</button></p>
   </form>
 </div>
 <div [class.is-hidden]="!transferSuccessful">
@@ -90,6 +91,16 @@
       Successfully transferred {{latestTransactionAmount}} CHF to {{latestTransactionTarget}}.
 
       <p>Your new balance is {{ownAccount?.amount}} CHF.</p>
+    </div>
+    <p><button class="button is-white" (click)="newTransaction()">New Transaction</button></p>
+  </div>
+</div>
+<div [class.is-hidden]="!transferFailed">
+  <h2 class="title is-4">Transfer failed</h2>
+  <div class="notification is-danger">
+    <button class="delete" (click)="newTransaction()"></button>
+    <div class="content">
+      Something went wrong with your transaction.
     </div>
     <p><button class="button is-white" (click)="newTransaction()">New Transaction</button></p>
   </div>
