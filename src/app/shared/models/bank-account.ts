@@ -1,14 +1,14 @@
 import { Account } from '../../auth/models';
 
 export class BankAccount {
+  public static fromDto(data: any): BankAccount {
+    return new BankAccount(data.ownerId, data.accountNr, data.amount, Account.fromDto(data.owner));
+  }
+
   constructor(public ownerId: string,
               public accountNr: string,
               public amount: string,
               public owner: Account) {
-  }
-
-  public static fromDto(data: any): BankAccount {
-    return new BankAccount(data.ownerId, data.accountNr, data.amount, Account.fromDto(data.owner));
   }
 
   toDto(): any {

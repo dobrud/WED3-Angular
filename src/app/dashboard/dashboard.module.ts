@@ -1,15 +1,15 @@
 import {NgModule, ModuleWithProviders} from '@angular/core';
 
-import {SharedModule} from "../shared/shared.module";
+import {SharedModule} from '../shared/shared.module';
 
-import {DashboardRoutingModule} from "./dashboard-routing.module";
+import {DashboardRoutingModule} from './dashboard-routing.module';
 import {DashboardComponent} from './dashboard.component';
 import {DashboardAuthGuard} from './services';
 import { AuthModule } from '../auth/auth.module';
 import { ControlPanelComponent, TransactionListComponent, NewTransactionFormComponent } from './components';
 import { RequestOptions } from '@angular/http';
-import { AuthRequestOptions } from '../auth/resources'
-import { SecurityTokenStore } from '../auth/services/credential-management'
+import { AuthRequestOptions } from '../auth/resources';
+import { SecurityTokenStore } from '../auth/services/credential-management';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { SecurityTokenStore } from '../auth/services/credential-management'
   ]
 })
 export class DashboardModule {
-  static forRoot(config?:{}) : ModuleWithProviders {
+  static forRoot(config?: {}): ModuleWithProviders {
     return {
       ngModule: DashboardModule,
       providers: [ {

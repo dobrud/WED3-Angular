@@ -1,23 +1,23 @@
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
-import {NgForm} from "@angular/forms";
+import {NgForm} from '@angular/forms';
 
-import {NavigationService} from "../../core/services/navigation.service";
+import {NavigationService} from '../../core/services/navigation.service';
 
-import {AuthService} from "../services";
-import {RegistrationInfo} from "../models";
+import {AuthService} from '../services';
+import {RegistrationInfo} from '../models';
 
 @Component({
-  selector: 'wed-register',
+  selector: 'app-wed-register',
   templateUrl: 'register.component.html',
   styleUrls: ['register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 
-  public registrationInfo:RegistrationInfo;
-  public confirmPassword:string;
+  public registrationInfo: RegistrationInfo;
+  public confirmPassword: string;
 
-  public isProcessing:boolean = false;
+  public isProcessing: boolean = false;
 
   constructor(private authService: AuthService, private navigationService: NavigationService) {
     // This part is for DX only, so you don't have to fill in the form every time
@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  public doRegister(f: NgForm):boolean {
+  public doRegister(f: NgForm): boolean {
     if (f.valid && this.registrationInfo.password === this.confirmPassword) {
       this.isProcessing = true;
       this.authService.register(this.registrationInfo);

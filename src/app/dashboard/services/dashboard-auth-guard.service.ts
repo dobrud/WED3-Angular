@@ -9,7 +9,7 @@ export class DashboardAuthGuard implements CanLoad {
   constructor(private authService: AuthService, private navigationService: NavigationService) {}
 
   canLoad() {
-    if(this.authService.hasCredentials) {
+    if (this.authService.hasCredentials) {
       return true;
     } else {
       this.navigationService.goToUrl('/welcome');

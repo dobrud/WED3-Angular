@@ -13,30 +13,30 @@ export class BankAccountService extends ResourceBase {
     super(http);
   }
 
-  public getOwnBankAccount():Observable<BankAccount> {
+  public getOwnBankAccount(): Observable<BankAccount> {
     return this.get('/accounts')
       .map((response: Response) => {
-        let result = response.json();
+        const result = response.json();
         if (result) {
           return BankAccount.fromDto(result);
         }
         return null;
       })
-      .catch((error:any) => {
+      .catch((error: any) => {
         return Observable.of<BankAccount>(null);
       });
   }
 
-  public getBankAccountByAccountNr(id: string):Observable<BankAccount> {
+  public getBankAccountByAccountNr(id: string): Observable<BankAccount> {
     return this.get(`/accounts/${id}`)
       .map((response: Response) => {
-        let result = response.json();
+        const result = response.json();
         if (result) {
           return BankAccount.fromDto(result);
         }
         return null;
       })
-      .catch((error:any) => {
+      .catch((error: any) => {
         return Observable.of<BankAccount>(null);
       });
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'wed-welcome',
+  selector: 'app-wed-welcome',
   templateUrl: 'welcome.component.html',
   styleUrls: ['welcome.component.scss']
 })

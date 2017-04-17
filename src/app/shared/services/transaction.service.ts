@@ -14,17 +14,17 @@ export class TransactionService extends ResourceBase {
     super(http);
   }
 
-  public transact(model:TransactionInfo):Observable<Transaction> {
+  public transact(model: TransactionInfo): Observable<Transaction> {
 
     return this.post('/accounts/transactions', model.toDto())
       .map((response: Response) => {
-        let result = response.json();
+        const result = response.json();
         if (result) {
           return Transaction.fromDto(result);
         }
         return null;
       })
-      .catch((error:any) => {
+      .catch((error: any) => {
         return Observable.of<Transaction>(null);
       });
   }

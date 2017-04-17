@@ -10,7 +10,7 @@ import { BankAccountService } from '../../shared/services';
   styleUrls: ['./control-panel.component.css']
 })
 export class ControlPanelComponent implements OnInit {
-  private ownAccount: BankAccount;
+  public ownAccount: BankAccount;
 
   constructor(private bankAccountService: BankAccountService) {
     this.ownAccount = new BankAccount(null, null, null, null);
@@ -22,7 +22,7 @@ export class ControlPanelComponent implements OnInit {
 
   getOwnAccount() {
     this.bankAccountService.getOwnBankAccount().subscribe(
-      (data:BankAccount) => {
+      (data: BankAccount) => {
         this.ownAccount = data;
     } );
   }

@@ -9,10 +9,10 @@ import { BankAccountService, TransactionService } from '../../shared/services';
   styleUrls: ['./new-transaction-form.component.scss']
 })
 export class NewTransactionFormComponent implements OnInit {
-  private transactionInfo: TransactionInfo;
-  private targetAccount: BankAccount;
-  private validBankAccount: boolean;
-  private validAmount: boolean;
+  public transactionInfo: TransactionInfo;
+  public targetAccount: BankAccount;
+  public validBankAccount: boolean;
+  public validAmount: boolean;
   public transferSuccessful: boolean = false;
   public transferFailed: boolean = false;
   public latestTransactionAmount: string;
@@ -20,10 +20,10 @@ export class NewTransactionFormComponent implements OnInit {
   public isProcessing: boolean = false;
 
   @Input()
-  private ownAccount: BankAccount;
+  public ownAccount: BankAccount;
 
   @Output()
-  private transactionDone: EventEmitter<string> = new EventEmitter();
+  public transactionDone: EventEmitter<string> = new EventEmitter();
 
   constructor(private bankAccountService: BankAccountService, private transactionService: TransactionService) {
     this.transactionInfo = new TransactionInfo(null, null);
@@ -37,7 +37,7 @@ export class NewTransactionFormComponent implements OnInit {
   }
 
   isOtherAccount() {
-    return this.transactionInfo.target != this.ownAccount.accountNr;
+    return this.transactionInfo.target !== this.ownAccount.accountNr;
   }
 
   isValidAccountNumber(): void {
@@ -48,8 +48,8 @@ export class NewTransactionFormComponent implements OnInit {
     }
 
     this.bankAccountService.getBankAccountByAccountNr(this.transactionInfo.target).subscribe(
-      (data:BankAccount) => {
-        if(data) {
+      (data: BankAccount) => {
+        if (data) {
           this.validBankAccount = true;
           this.targetAccount = data;
         } else {
@@ -68,8 +68,8 @@ export class NewTransactionFormComponent implements OnInit {
     if (form.valid) {
       this.isProcessing = true;
       this.transactionService.transact(this.transactionInfo).subscribe(
-        (data:Transaction) => {
-          if(data) {
+        (data: Transaction) => {
+          if (data) {
             this.transferSuccessful = true;
             this.latestTransactionAmount = this.transactionInfo.amount;
             this.latestTransactionTarget = this.transactionInfo.target;
