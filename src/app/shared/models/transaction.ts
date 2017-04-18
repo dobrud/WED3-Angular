@@ -5,6 +5,17 @@ export class Transaction {
     return new Transaction(data.from, data.target, data.amount, data.total, data.date);
   }
 
+  public static fromDtoArray(data: Object[]): Transaction[] {
+    const transactions: Array<Transaction> = new Array<Transaction>();
+
+    for (const element of data) {
+        const transaction: Transaction = Transaction.fromDto(element);
+        transactions.push(transaction);
+    }
+
+    return transactions;
+  }
+
   constructor(public from: Account,
               public target: Account,
               public amount: number,
