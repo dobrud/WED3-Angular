@@ -1,3 +1,37 @@
-<p>
-  transactions works!
-</p>
+<table class="table is-striped">
+  <thead>
+    <tr>
+      <th [class.is-hidden]="!showDate">
+        Date
+      </th>
+      <th>
+        Source
+      </th>
+      <th>
+        Target
+      </th>
+      <th>
+        Amount [CHF]
+      </th>
+      <th>
+        Balance [CHF]
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <td [class.is-hidden]="!showDate">{{transaction.date}}</td>
+      <td>{{transaction.from}}</td>
+      <td>{{transaction.target}}</td>
+      <td>{{transaction.amount}}</td>
+      <td>{{transaction.total}}</td>
+    </tr>
+    <tr [class.is-hidden]="0 < transactions?.length">
+      <td colspan="5">
+        <div class="notification is-warning">
+          There are no transactions available to display.
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
