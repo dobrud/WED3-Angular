@@ -88,9 +88,9 @@
   <div class="notification is-success">
     <button class="delete" (click)="newTransaction()"></button>
     <div class="content">
-      Successfully transferred {{latestTransactionAmount}} CHF to {{latestTransactionTarget}}.
+      Successfully transferred {{latestTransactionAmount | number:'1.2-2'}} CHF to {{latestTransactionTarget}}.
 
-      <p>Your new balance is {{ownAccount?.amount}} CHF.</p>
+      <p>Your new balance is {{ownAccount?.amount | number:'1.2-2'}} CHF.</p>
     </div>
     <p><button class="button is-white" (click)="newTransaction()">New Transaction</button></p>
   </div>
