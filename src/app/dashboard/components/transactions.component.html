@@ -1,3 +1,35 @@
-<p>
-  transactions works!
-</p>
+<div class="container">
+  <div class="columns">
+    <div class="column is-3">
+      <div class="box">
+        <h2 class="title is-5">Filter</h2>
+        <div class="field">
+          <label class="label">Year</label>
+          <p class="control">
+            <span class="select">
+              <select [(ngModel)]="selectedYear" (change)="getTransactions($event)">
+                <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+              </select>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <label class="label">Month</label>
+          <p class="control">
+            <span class="select">
+              <select [(ngModel)]="selectedMonth" (change)="getTransactions($event)">
+                <option *ngFor="let month of months" [ngValue]="month.value">{{month.emoji}}&nbsp;&nbsp;{{month.name}}</option>
+              </select>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="column is-9">
+      <div class="box no-shadow">
+        <h2 class="title is-4">All Transactions</h2>
+        <app-transaction-list [transactions]="transactions" showDate="true"></app-transaction-list>
+      </div>
+    </div>
+  </div>
+</div>
