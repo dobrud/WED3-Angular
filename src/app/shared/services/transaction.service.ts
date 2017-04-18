@@ -47,17 +47,10 @@ export class TransactionService extends ResourceBase {
                                   month: number,
                                   count?: number,
                                   skip?: number): Observable<Transaction[]> {
-    const fromDate: Date = new Date();
-    fromDate.setFullYear(year);
-    fromDate.setMonth(month);
-    fromDate.setDate(1);
-    fromDate.setHours(0);
-    fromDate.setMinutes(0);
-    fromDate.setSeconds(0);
+    const fromDate: Date = new Date(year, month, 1, 0, 0, 0, 0);
 
     const toDate: Date = new Date(fromDate);
     toDate.setMonth(month + 1);
-    toDate.setDate(0);
 
     const queryString = `?fromDate=${fromDate.toISOString()}&toDate=${toDate.toISOString()}&skip=${skip}`;
 
