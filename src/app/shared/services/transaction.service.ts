@@ -15,7 +15,6 @@ export class TransactionService extends ResourceBase {
   }
 
   public transact(model: TransactionInfo): Observable<Transaction> {
-
     return this.post('/accounts/transactions', model.toDto())
       .map((response: Response) => {
         const result = response.json();
@@ -26,6 +25,21 @@ export class TransactionService extends ResourceBase {
       })
       .catch((error: any) => {
         return Observable.of<Transaction>(null);
+      });
+  }
+
+  public getTransactions(count: number, skip?: number): Observable<Transaction[]> {
+    const queryString = `?count=${count}&skip=${skip}`;
+    return this.get('/accounts/transactions' + queryString)
+      .map((response: Response) => {
+        const responseJson = response.json();
+        if (responseJson) {
+          return Transaction.fromDtoArray(responseJson.result);
+        }
+        return null;
+      })
+      .catch((error: any) => {
+        return Observable.of<Transaction[]>(null);
       });
   }
 }
