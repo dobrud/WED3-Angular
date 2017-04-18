@@ -55,7 +55,7 @@
     <div class="field">
       <label class="label">From</label>
       <p class="control">
-        <input class="input" value="{{ownAccount?.accountNr}} [{{ownAccount?.amount}} CHF]" disabled>
+        <input class="input" value="{{ownAccount?.accountNr}} [{{ownAccount?.amount | number:'1.2-2'}} CHF]" disabled>
       </p>
       <p class="help">Sender: {{ownAccount?.owner?.firstname}} {{ownAccount?.owner?.lastname}}</p>
     </div>
