@@ -42,4 +42,35 @@ export class TransactionService extends ResourceBase {
         return Observable.of<Transaction[]>(null);
       });
   }
+
+  public getTransactionsByYearAndMonth(year: number,
+                                  month: number,
+                                  count?: number,
+                                  skip?: number): Observable<Transaction[]> {
+    const fromDate: Date = new Date();
+    fromDate.setFullYear(year);
+    fromDate.setMonth(month);
+    fromDate.setDate(1);
+    fromDate.setHours(0);
+    fromDate.setMinutes(0);
+    fromDate.setSeconds(0);
+
+    const toDate: Date = new Date(fromDate);
+    toDate.setMonth(month + 1);
+    toDate.setDate(0);
+
+    const queryString = `?fromDate=${fromDate.toISOString()}&toDate=${toDate.toISOString()}&skip=${skip}`;
+
+    return this.get('/accounts/transactions' + queryString)
+      .map((response: Response) => {
+        const responseJson = response.json();
+        if (responseJson) {
+          return Transaction.fromDtoArray(responseJson.result);
+        }
+        return null;
+      })
+      .catch((error: any) => {
+        return Observable.of<Transaction[]>(null);
+      });
+  }
 }
