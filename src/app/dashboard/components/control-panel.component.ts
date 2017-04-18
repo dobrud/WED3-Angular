@@ -4,6 +4,8 @@ import { BankAccount, TransactionInfo, Transaction } from '../../shared/models';
 import { AuthService } from '../../auth/services';
 import { BankAccountService, TransactionService } from '../../shared/services';
 
+const MAX_TRANSACTIONS_TO_DISPLAY = 3;
+
 @Component({
   selector: 'app-control-panel',
   templateUrl: './control-panel.component.html',
@@ -30,7 +32,7 @@ export class ControlPanelComponent implements OnInit {
   }
 
   getLatestTransactions() {
-    this.transactionService.getTransactions(3).subscribe(
+    this.transactionService.getTransactions(MAX_TRANSACTIONS_TO_DISPLAY).subscribe(
       (data: Transaction[]) => {
         this.transactions = data;
       });
