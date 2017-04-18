@@ -6,7 +6,7 @@ import {DashboardRoutingModule} from './dashboard-routing.module';
 import {DashboardComponent} from './dashboard.component';
 import {DashboardAuthGuard} from './services';
 import { AuthModule } from '../auth/auth.module';
-import { ControlPanelComponent, TransactionListComponent, NewTransactionFormComponent } from './components';
+import { ControlPanelComponent, TransactionsComponent, TransactionListComponent, NewTransactionFormComponent } from './components';
 import { RequestOptions } from '@angular/http';
 import { AuthRequestOptions } from '../auth/resources';
 import { SecurityTokenStore } from '../auth/services/credential-management';
@@ -16,6 +16,7 @@ import { SecurityTokenStore } from '../auth/services/credential-management';
     // Declarations (Components / Directives) used from/within the Module
     DashboardComponent,
     ControlPanelComponent,
+    TransactionsComponent,
     TransactionListComponent,
     NewTransactionFormComponent
   ],
