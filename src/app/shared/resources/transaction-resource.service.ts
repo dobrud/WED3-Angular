@@ -34,7 +34,6 @@ export class TransactionResourceService extends ResourceBase {
       .map((response: Response) => {
         const responseJson = response.json();
         if (responseJson) {
-          console.log("Trans", responseJson);
           return new TransactionList(responseJson.query.resultcount, responseJson.query.skip, Transaction.fromDtoArray(responseJson.result));
         }
         return null;

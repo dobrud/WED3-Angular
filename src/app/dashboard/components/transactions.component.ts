@@ -93,7 +93,6 @@ export class TransactionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     this.getTransactions();
   }
 
@@ -104,7 +103,6 @@ export class TransactionsComponent implements OnInit {
   getTransactions() {
     this.transactionService.getTransactionsByYearAndMonth(this.selectedYear, this.selectedMonth, MAX_TRANSACTIONS_PER_PAGE, this.currentPage * MAX_TRANSACTIONS_PER_PAGE).subscribe(
       (data: TransactionList) => {
-        console.log("transactions: ", data)
         this.transactions = data.transactions;
         this.totalPages = Math.ceil(data.total / MAX_TRANSACTIONS_PER_PAGE);
         this.currentPage = Math.floor(data.start / MAX_TRANSACTIONS_PER_PAGE);
