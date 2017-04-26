@@ -60,7 +60,8 @@ export class NewTransactionFormComponent implements OnInit {
   }
 
   isValidAmount(): void {
-    this.validAmount = Number.parseFloat(this.transactionInfo.amount) <= Number.parseFloat(this.ownAccount.amount);
+    let transactionAmount = Number.parseFloat(this.transactionInfo.amount);
+    this.validAmount = transactionAmount >= 0.05 && transactionAmount <= Number.parseFloat(this.ownAccount.amount);
   }
 
   doTransaction(form: NgForm) {
