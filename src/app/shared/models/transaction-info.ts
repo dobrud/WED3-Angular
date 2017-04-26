@@ -1,5 +1,8 @@
 import {Account} from '../../auth/models';
 
+// TODO: If this was a real app; we need to devide how to handle money amounts. floats/numbers should not be used because of 
+// reounding issues; therefore we use strings to represent amounts. Needs to be checked on the serverside as well becuase that is 
+// where the actual transactions/amounts are modified.
 export class TransactionInfo {
   private _target: string;
   private _amount: string;
@@ -36,7 +39,7 @@ export class TransactionInfo {
   toDto(): any {
       return {
         target: this.target,
-        amount: this.amount
+        amount: Number.parseFloat(this.amount)//TODO: DANGER: see comment on top of this file for money as floats...
       };
     }
 

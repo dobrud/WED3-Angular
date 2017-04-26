@@ -18,8 +18,8 @@ export class Transaction {
 
   constructor(public from: Account,
               public target: Account,
-              public amount: number,
-              public total: number,
+              public amount: string,
+              public total: string,
               public date: Date) {
   }
 
