@@ -4,42 +4,20 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 
 import { BankAccount } from '../models';
-import { ResourceBase } from '../../auth/resources';
+import { AccountResourceService } from '../resources';
 
 @Injectable()
-export class BankAccountService extends ResourceBase {
+export class BankAccountService {
 
-  constructor(http: Http) {
-    super(http);
+  constructor(private resource: AccountResourceService) {
   }
 
   public getOwnBankAccount(): Observable<BankAccount> {
-    return this.get('/accounts')
-      .map((response: Response) => {
-        const result = response.json();
-        if (result) {
-          return BankAccount.fromDto(result);
-        }
-        return null;
-      })
-      .catch((error: any) => {
-        return Observable.of<BankAccount>(null);
-      });
+    return this.resource.getOwnBankAccount();
   }
 
   public getBankAccountByAccountNr(id: string): Observable<BankAccount> {
-    return this.get(`/accounts/${id}`)
-      .map((response: Response) => {
-        const result = response.json();
-        if (result) {
-          return BankAccount.fromDto(result);
-        }
-        return null;
-      })
-      .catch((error: any) => {
-        return Observable.of<BankAccount>(null);
-      });
+    return this.resource.getBankAccountByAccountNr(id);
   }
-
 
 }

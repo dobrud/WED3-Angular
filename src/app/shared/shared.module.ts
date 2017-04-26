@@ -2,6 +2,7 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {BankAccountService, TransactionService} from './services';
+import {TransactionResourceService, AccountResourceService} from './resources';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import {BankAccountService, TransactionService} from './services';
   ],
   providers: [
     TransactionService,
-    BankAccountService
+    BankAccountService,
+    TransactionResourceService,
+    AccountResourceService
   ]
 })
 export class SharedModule {
