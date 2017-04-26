@@ -33,9 +33,8 @@ export class NewTransactionFormComponent implements OnInit {
   }
 
   hasMinimumLength(): boolean {
-    return 1000000 < Number.parseInt(this.transactionInfo.target);
+    return 1000000 <= Number.parseInt(this.transactionInfo.target);
   }
-
   isOtherAccount() {
     return this.transactionInfo.target !== this.ownAccount.accountNr;
   }
