@@ -4,8 +4,7 @@ import { TransactionService } from '../../shared/services';
 
 @Component({
   selector: 'app-transaction-list',
-  templateUrl: './transaction-list.component.html',
-  styleUrls: ['./transaction-list.component.css']
+  templateUrl: './transaction-list.component.html'
 })
 export class TransactionListComponent implements OnInit {
   @Input()

@@ -9,8 +9,7 @@ import {LoginInfo} from '../models';
 
 @Component({
   selector: 'app-wed-login',
-  templateUrl: 'login.component.html',
-  styleUrls: ['login.component.scss']
+  templateUrl: 'login.component.html'
 })
 export class LoginComponent implements OnInit {
 

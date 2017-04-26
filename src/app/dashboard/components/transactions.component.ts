@@ -8,8 +8,7 @@ const MAX_YEARS_TO_DISPLAY_IN_FILTER = 3;
 
 @Component({
   selector: 'app-transactions',
-  templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.css']
+  templateUrl: './transactions.component.html'
 })
 export class TransactionsComponent implements OnInit {
   public months: Array<Object> = [{

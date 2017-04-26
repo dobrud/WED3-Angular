@@ -9,8 +9,7 @@ import {RegistrationInfo} from '../models';
 
 @Component({
   selector: 'app-wed-register',
-  templateUrl: 'register.component.html',
-  styleUrls: ['register.component.scss']
+  templateUrl: 'register.component.html'
 })
 export class RegisterComponent implements OnInit {
 

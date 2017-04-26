@@ -8,8 +8,7 @@ const MAX_TRANSACTIONS_TO_DISPLAY = 3;
 
 @Component({
   selector: 'app-control-panel',
-  templateUrl: './control-panel.component.html',
-  styleUrls: ['./control-panel.component.css']
+  templateUrl: './control-panel.component.html'
 })
 export class ControlPanelComponent implements OnInit {
   public ownAccount: BankAccount;
