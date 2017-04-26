@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { TransactionService } from '../../shared/services';
 
-import { Transaction } from '../../shared/models';
+import { Transaction, TransactionList } from '../../shared/models';
 
-const MAX_YEARS_TO_DISPLAY_IN_FILTER = 3;
+const MAX_YEARS_TO_DISPLAY_IN_FILTER : number = 3;
+const MAX_TRANSACTIONS_PER_PAGE : number = 5;
 
 @Component({
   selector: 'app-transactions',
@@ -79,7 +80,11 @@ export class TransactionsComponent implements OnInit {
 
   public transactions: Transaction[];
 
+  public totalPages: number = 1;
+  public currentPage:number = 0;
+
   constructor(private transactionService: TransactionService) {
+    this.currentPage = 0;
     const date: Date = new Date();
     const year: number = date.getFullYear();
     for (let i: number = year; year - MAX_YEARS_TO_DISPLAY_IN_FILTER < i; i--) {
@@ -88,13 +93,21 @@ export class TransactionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.getTransactions();
   }
 
+  handlePagination(evt, delta) {
+    this.currentPage += delta;
+    this.getTransactions();
+  }
   getTransactions() {
-    this.transactionService.getTransactionsByYearAndMonth(this.selectedYear, this.selectedMonth).subscribe(
-      (data: Transaction[]) => {
-        this.transactions = data;
+    this.transactionService.getTransactionsByYearAndMonth(this.selectedYear, this.selectedMonth, MAX_TRANSACTIONS_PER_PAGE, this.currentPage * MAX_TRANSACTIONS_PER_PAGE).subscribe(
+      (data: TransactionList) => {
+        console.log("transactions: ", data)
+        this.transactions = data.transactions;
+        this.totalPages = Math.ceil(data.total / MAX_TRANSACTIONS_PER_PAGE);
+        this.currentPage = Math.floor(data.start / MAX_TRANSACTIONS_PER_PAGE);
       });
   }
 

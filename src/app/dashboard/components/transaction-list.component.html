@@ -35,3 +35,8 @@
     </tr>
   </tbody>
 </table>
+<div class="pagination-links" [hidden]="hidePagination || !(0 < transactions?.length)">
+  <button class="button is-info" (click)="onPrevPage.emit(currentPage)" [disabled]="currentPage == 0">&lt;&lt;</button>
+  <span>Page {{currentPage + 1}} of {{totalPages}}</span>
+  <button class="button is-info" (click)="onNextPage.emit(currentPage)" [disabled]="currentPage >= totalPages - 1" >&gt;&gt;</button>
+</div>

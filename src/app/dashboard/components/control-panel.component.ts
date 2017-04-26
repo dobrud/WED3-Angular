@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { BankAccount, TransactionInfo, Transaction } from '../../shared/models';
+import { BankAccount, TransactionInfo, Transaction, TransactionList } from '../../shared/models';
 import { AuthService } from '../../auth/services';
 import { BankAccountService, TransactionService } from '../../shared/services';
 
@@ -32,8 +32,8 @@ export class ControlPanelComponent implements OnInit {
 
   getLatestTransactions() {
     this.transactionService.getTransactions(MAX_TRANSACTIONS_TO_DISPLAY).subscribe(
-      (data: Transaction[]) => {
-        this.transactions = data;
+      (data: TransactionList) => {
+        this.transactions = data.transactions;
       });
   }
 

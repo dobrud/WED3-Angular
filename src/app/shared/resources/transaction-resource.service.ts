@@ -5,7 +5,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 
 import { ResourceBase } from './resource-base';
-import { Transaction, TransactionInfo } from '../models';
+import { Transaction, TransactionList, TransactionInfo } from '../models';
 
 @Injectable()
 export class TransactionResourceService extends ResourceBase {
@@ -28,42 +28,34 @@ export class TransactionResourceService extends ResourceBase {
       });
   }
 
-  public getTransactions(count: number, skip?: number): Observable<Transaction[]> {
-    const queryString = `?count=${count}&skip=${skip}`;
+  private getTransactionsWithQuery(queryString:string): Observable<TransactionList> {
+    
     return this.get('/accounts/transactions' + queryString)
       .map((response: Response) => {
         const responseJson = response.json();
         if (responseJson) {
-          return Transaction.fromDtoArray(responseJson.result);
+          console.log("Trans", responseJson);
+          return new TransactionList(responseJson.query.resultcount, responseJson.query.skip, Transaction.fromDtoArray(responseJson.result));
         }
         return null;
       })
       .catch((error: any) => {
-        return Observable.of<Transaction[]>(null);
+        return Observable.of<TransactionList>(null);
       });
+  }
+
+  public getTransactions(count: number, skip?: number): Observable<TransactionList> {
+    return this.getTransactionsWithQuery(`?count=${count}&skip=${skip}`);
   }
 
   public getTransactionsByYearAndMonth(year: number,
                                   month: number,
                                   count?: number,
-                                  skip?: number): Observable<Transaction[]> {
+                                  skip?: number): Observable<TransactionList> {
     const fromDate: Date = new Date(year, month, 1, 0, 0, 0, 0);
-
     const toDate: Date = new Date(fromDate);
     toDate.setMonth(month + 1);
 
-    const queryString = `?fromDate=${fromDate.toISOString()}&toDate=${toDate.toISOString()}&skip=${skip}`;
-
-    return this.get('/accounts/transactions' + queryString)
-      .map((response: Response) => {
-        const responseJson = response.json();
-        if (responseJson) {
-          return Transaction.fromDtoArray(responseJson.result);
-        }
-        return null;
-      })
-      .catch((error: any) => {
-        return Observable.of<Transaction[]>(null);
-      });
+    return this.getTransactionsWithQuery(`?fromDate=${fromDate.toISOString()}&toDate=${toDate.toISOString()}&skip=${skip}&count=${count}`);
   }
 }

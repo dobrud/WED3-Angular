@@ -28,7 +28,7 @@
     <div class="column is-9">
       <div class="box no-shadow">
         <h2 class="title is-4">All Transactions</h2>
-        <app-transaction-list [transactions]="transactions" showDate="true"></app-transaction-list>
+        <app-transaction-list [transactions]="transactions" [currentPage]="currentPage" [totalPages]="totalPages" showDate="true" (onPrevPage)="handlePagination($event, -1)" (onNextPage)="handlePagination($event, +1)"></app-transaction-list>
       </div>
     </div>
   </div>

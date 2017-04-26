@@ -6,7 +6,7 @@
     <div class="column is-two-thirds">
       <div class="box no-shadow">
         <h2 class="title is-4">Latest Transactions</h2>
-        <app-transaction-list [transactions]="transactions"></app-transaction-list>
+        <app-transaction-list [transactions]="transactions" [hidePagination]="true"></app-transaction-list>
         <button class="button is-info" routerLink="/dashboard/transactions">All Transactions</button>
       </div>
     </div>
