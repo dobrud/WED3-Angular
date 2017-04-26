@@ -19,9 +19,8 @@ export class RegisterComponent implements OnInit {
   public isProcessing: boolean = false;
 
   constructor(private authService: AuthService, private navigationService: NavigationService) {
-    // This part is for DX only, so you don't have to fill in the form every time
-    this.registrationInfo = new RegistrationInfo('hmayer', 'abc', 'Hans', 'Mayer');
-    this.confirmPassword = 'abc';
+    this.registrationInfo = new RegistrationInfo('', '', '', '');
+    this.confirmPassword = '';
   }
 
   ngOnInit() {
@@ -35,7 +34,7 @@ export class RegisterComponent implements OnInit {
   }
 
   public doRegister(f: NgForm): boolean {
-    if (f.valid && this.registrationInfo.password === this.confirmPassword) {
+    if (f.valid) {
       this.isProcessing = true;
       this.authService.register(this.registrationInfo);
     }

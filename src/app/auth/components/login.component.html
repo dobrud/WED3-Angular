@@ -3,16 +3,16 @@
     <div class="field">
       <label class="label">Username</label>
       <p class="control">
-        <input class="input" [class.is-danger]="!username.valid&&username.dirty" pattern=".{3,}" placeholder="User" type="text" name="username" [(ngModel)]="loginInfo.login" #username="ngModel" required>
+        <input class="input" [class.is-danger]="!username.valid && username.dirty" pattern=".{3,}" placeholder="User" type="text" name="username" [(ngModel)]="loginInfo.login" #username="ngModel" required>
       </p>
-      <p [class.is-hidden]="username.valid" [class.is-danger]="!username.valid&&username.dirty" class="help">Please specify your username, at least three characters</p>
+      <p [hidden]="username.valid || username.pristine"class="help is-danger">Please specify your username, at least three characters</p>
     </div>
     <div class="field">
       <label class="label">Password</label>
       <p class="control">
-        <input class="input" [class.is-danger]="!password.valid&&password.dirty" pattern=".{3,}" placeholder="Password" type="password" name="password" [(ngModel)]="loginInfo.password" #password="ngModel" required>
+        <input class="input" [class.is-danger]="!password.valid && password.dirty" pattern=".{3,}" placeholder="Password" type="password" name="password" [(ngModel)]="loginInfo.password" #password="ngModel" required>
       </p>
-      <p [class.is-hidden]="password.valid" [class.is-danger]="!password.valid&&password.dirty" class="help">Please specify your password, at least three characters</p>
+      <p [hidden]="password.valid || password.pristine" class="help is-danger">Please specify your password, at least three characters</p>
     </div>
     <button [disabled]="!loginForm.valid" class="button is-info">Login</button>
   </form>

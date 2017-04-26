@@ -21,9 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private autSvc: AuthService, private navigationSvc: NavigationService, route: ActivatedRoute) {
     route.params.subscribe((p: Params) => this.backUrl = p['backUrl']);
-
-    // This part is for DX only, so you don't have to fill in the form every time
-    this.loginInfo = new LoginInfo('hmayer', 'abc');
+    this.loginInfo = new LoginInfo('', '');
   }
 
   ngOnInit() {

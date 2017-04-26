@@ -32,16 +32,12 @@ export class NewTransactionFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  hasMinimumLength(): boolean {
-    return String(this.transactionInfo.target).length >= 7;
-  }
-  isOtherAccount() {
-    return this.transactionInfo.target !== this.ownAccount.accountNr;
+  isTransactionToOwnAccount() {
+    return this.transactionInfo.target === this.ownAccount.accountNr;
   }
 
-  isValidAccountNumber(): void {
-    if (!this.hasMinimumLength() || !this.isOtherAccount()) {
-      this.validBankAccount = null;
+  fetchTargetAccount(): void {
+    if (this.isTransactionToOwnAccount() || this.transactionInfo.target.length < 7) {
       this.targetAccount = null;
       return;
     }
@@ -49,20 +45,21 @@ export class NewTransactionFormComponent implements OnInit {
     this.bankAccountService.getBankAccountByAccountNr(this.transactionInfo.target).subscribe(
       (data: BankAccount) => {
         if (data) {
-          this.validBankAccount = true;
           this.targetAccount = data;
         } else {
-          this.validBankAccount = false;
           this.targetAccount = null;
         }
       }
     );
   }
 
-  isValidAmount(): void {
-    this.validAmount = Number.parseFloat(this.transactionInfo.amount) <= Number.parseFloat(this.ownAccount.amount);
+  isAccountNotOverdrawn(): boolean {
+    return Number.parseFloat(this.transactionInfo.amount) <= Number.parseFloat(this.ownAccount.amount);
   }
 
+  isValidTransaction(): boolean{
+    return this.isAccountNotOverdrawn() && ! this.isTransactionToOwnAccount() && this.targetAccount != null;
+  }
   doTransaction(form: NgForm) {
     if (form.valid) {
       this.isProcessing = true;
@@ -88,7 +85,6 @@ export class NewTransactionFormComponent implements OnInit {
   newTransaction() {
     this.transferSuccessful = false;
     this.transferFailed = false;
-    this.validBankAccount = false;
     this.targetAccount = null;
     this.transactionInfo = new TransactionInfo(null, null);
     this.latestTransactionAmount = null;

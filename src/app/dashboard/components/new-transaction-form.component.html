@@ -1,5 +1,5 @@
 <div class="box overlay-container">
-  <div class="overlay" [class.is-hidden]="!isProcessing">
+  <div class="overlay" [hidden]="!isProcessing">
     <!-- Comments are just to fix whitespace with inline-block -->
     <div class="Spinner"><!--
     --><div class="Spinner-line Spinner-line--1"><!--
@@ -49,7 +49,7 @@
 
 --></div><!--/spinner -->
 </div>
-<div [class.is-hidden]="transferSuccessful||transferFailed">
+<div [hidden]="transferSuccessful||transferFailed">
   <h2 class="title is-4">New Transaction</h2>
   <form (ngSubmit)="doTransaction(transactionForm)" #transactionForm="ngForm">
     <div class="field">
@@ -62,28 +62,34 @@
     <div class="field">
       <label class="label">To</label>
       <p class="control">
-        <input class="input" [class.is-danger]="target.dirty&&(!hasMinimumLength()||!isOtherAccount()||!validBankAccount)" pattern=".{7,}" min="1000000" max="9999999" step="1" placeholder="Target Account Number" type="number" name="target" [(ngModel)]="transactionInfo.target" (keyup)="isValidAccountNumber()" #target="ngModel" required>
+        <input class="input" [class.is-danger]="target.errors && (target.dirty || target.touched)" minlength="7" min="1000000" max="9999999" step="1" placeholder="Target Account Number" type="number" name="target" [(ngModel)]="transactionInfo.target" (ngModelChange)="fetchTargetAccount()" #target="ngModel" required>
       </p>
-      <p class="help" [class.is-hidden]="target.dirty">Please specify the target account number</p>
-      <div [class.is-hidden]="target.pristine">
-        <p class="help" [class.is-danger]="!hasMinimumLength()" [class.is-hidden]="hasMinimumLength()">Target Account number must have at least 7 digits</p>
-        <p class="help" [class.is-danger]="!isOtherAccount()" [class.is-hidden]="isOtherAccount()||validBankAccount">You may not transact money to yourself</p>
-        <p class="help" [class.is-danger]="!validBankAccount" [class.is-hidden]="!isOtherAccount()||!hasMinimumLength()||validBankAccount">Unknown Account number specified</p>
-        <p class="help" [class.is-success]="validBankAccount" [class.is-hidden]="!validBankAccount">Recipient: {{targetAccount?.owner?.firstname}} {{targetAccount?.owner?.lastname}}</p>
+      <p class="help" [hidden]="target.dirty">Please specify the target account number</p>
+      <div *ngIf="target.errors && (target.dirty || target.touched)">
+        <p class="help is-danger" [hidden]="!target.errors.minlength">Target Account number must have at least {{target.errors?.minlength?.requiredLenght}} digits</p>
+        <p class="help is-danger" [hidden]="!target.errors.max">Target Account number must smaller than {{target.errors?.max?.maxValue}}</p>
+        
       </div>
+      <p class="help is-danger" [hidden]="!isTransactionToOwnAccount()">You may not transact money to yourself</p>
+      <p class="help is-danger" [hidden]="targetAccount || isTransactionToOwnAccount() || target.errors">Unknown Account number specified</p>
+      <p class="help" [hidden]="!targetAccount">Recipient: {{targetAccount?.owner?.firstname}} {{targetAccount?.owner?.lastname}}</p>
     </div>
+    
     <div class="field">
       <label class="label">Amount [CHF]</label>
       <p class="control">
-        <input class="input" [class.is-danger]="amount.dirty&&!validAmount" min="0.05" step="0.05" placeholder="Amount in CHF" type="number" name="amount" [(ngModel)]="transactionInfo.amount" (keyup)="isValidAmount()" #amount="ngModel" required>
+        <input class="input" [class.is-danger]="amount.errors && (amount.dirty || amount.touched)" min="0.05" max="{{ownAccount.amount}}" step="0.05" placeholder="Amount in CHF" type="number" name="amount" [(ngModel)]="transactionInfo.amount" #amount="ngModel" required>
       </p>
-      <p class="help">Please specify the amount</p>
-      <p class="help" [class.is-danger]="!validAmount" [class.is-hidden]="amount.pristine||validAmount">You can not overdraw your account. Please check your amount.</p>
+       <div *ngIf="amount.errors && (amount.dirty || amount.touched)" class="alert alert-danger">
+        <p class="help is-danger" [hidden]="!amount.errors.min">Amount must be greater than {{amount.errors?.min?.minValue}} CHF.</p>
+        <p class="help is-danger" [hidden]="!amount.errors.max">You can not overdraw your account. Please check your amount.</p>
+       </div>
+      <p class="help" [class.is-danger]="amount.dirty && amount.errors?.required">Please specify the amount</p>
     </div>
-    <p><button class="button is-info" [disabled]="!transactionForm.valid||!validBankAccount||!validAmount">Send</button></p>
+    <p><button class="button is-info" [disabled]="!transactionForm.valid||!isValidTransaction()">Send</button></p>
   </form>
 </div>
-<div [class.is-hidden]="!transferSuccessful">
+<div [hidden]="!transferSuccessful">
   <h2 class="title is-4">Transfer successful</h2>
   <div class="notification is-success">
     <button class="delete" (click)="newTransaction()"></button>
@@ -95,7 +101,7 @@
     <p><button class="button is-white" (click)="newTransaction()">New Transaction</button></p>
   </div>
 </div>
-<div [class.is-hidden]="!transferFailed">
+<div [hidden]="!transferFailed">
   <h2 class="title is-4">Transfer failed</h2>
   <div class="notification is-danger">
     <button class="delete" (click)="newTransaction()"></button>

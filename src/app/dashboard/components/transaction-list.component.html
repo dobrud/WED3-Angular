@@ -1,7 +1,7 @@
 <table class="table is-striped">
   <thead>
     <tr>
-      <th [class.is-hidden]="!showDate">
+      <th [hidden]="!showDate">
         Date
       </th>
       <th>
@@ -20,13 +20,13 @@
   </thead>
   <tbody>
     <tr *ngFor="let transaction of transactions">
-      <td [class.is-hidden]="!showDate"><strong>{{transaction.date | date:'dd.MM.yyyy'}}</strong></td>
+      <td [hidden]="!showDate"><strong>{{transaction.date | date:'dd.MM.yyyy'}}</strong></td>
       <td>{{transaction.from}}</td>
       <td>{{transaction.target}}</td>
       <td style="text-align:right;">{{transaction.amount | number:'1.2-2'}}</td>
       <td style="text-align:right;">{{transaction.total | number:'1.2-2'}}</td>
     </tr>
-    <tr [class.is-hidden]="0 < transactions?.length">
+    <tr [hidden]="0 < transactions?.length">
       <td colspan="5">
         <div class="notification is-warning">
           There are no transactions available to display.

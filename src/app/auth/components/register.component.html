@@ -3,39 +3,39 @@
     <div class="field">
       <label class="label">First name</label>
       <p class="control">
-        <input class="input" [class.is-danger]="!firstName.valid&&firstName.dirty" pattern=".{2,}" placeholder="First name" type="text" name="firstName" [(ngModel)]="registrationInfo.firstname" #firstName="ngModel" required>
+        <input class="input" [class.is-danger]="!firstName.valid && firstName.dirty" pattern=".{2,}" placeholder="First name" type="text" name="firstName" [(ngModel)]="registrationInfo.firstname" #firstName="ngModel" required>
       </p>
-      <p [class.is-hidden]="firstName.valid" [class.is-danger]="!firstName.valid&&firstName.dirty" class="help">Please specify your first name</p>
+      <p [hidden]="firstName.valid || firstName.pristine" class="help is-danger">Please specify your first name</p>
     </div>
     <div class="field">
       <label class="label">Last name</label>
       <p class="control">
-        <input class="input" [class.is-danger]="!lastName.valid&&lastName.dirty" pattern=".{2,}" placeholder="Last name" type="text" name="lastName" [(ngModel)]="registrationInfo.lastname" #lastName="ngModel" required>
+        <input class="input" [class.is-danger]="!lastName.valid && lastName.dirty" pattern=".{2,}" placeholder="Last name" type="text" name="lastName" [(ngModel)]="registrationInfo.lastname" #lastName="ngModel" required>
       </p>
-      <p [class.is-hidden]="lastName.valid" [class.is-danger]="!lastName.valid&&lastName.dirty" class="help">Please specify your last name</p>
+      <p [hidden]="lastName.valid || lastName.pristine" class="help is-danger">Please specify your last name</p>
     </div>
     <div>
     </div>
     <div class="field">
       <label class="label">Username</label>
       <p class="control">
-        <input class="input" [class.is-danger]="!username.valid&&username.dirty" pattern=".{3,}" placeholder="Username" type="text" name="username" [(ngModel)]="registrationInfo.login" #username="ngModel" required>
+        <input class="input" [class.is-danger]="!username.valid && username.dirty" pattern=".{3,}" placeholder="Username" type="text" name="username" [(ngModel)]="registrationInfo.login" #username="ngModel" required>
       </p>
-      <p [class.is-hidden]="username.valid" [class.is-danger]="!username.valid&&username.dirty" class="help">Please specify your login, at least three characters</p>
+      <p [hidden]="username.valid || username.pristine" class="help is-danger">Please specify your login, at least three characters</p>
     </div>
     <div class="field">
       <label class="label">Password</label>
       <p class="control">
-        <input class="input" [class.is-danger]="!password.valid&&password.dirty" pattern=".{3,}" placeholder="Password" type="password" name="password" [(ngModel)]="registrationInfo.password" #password="ngModel" required>
+        <input class="input" [class.is-danger]="!password.valid && password.dirty" pattern=".{3,}" placeholder="Password" type="password" name="password" [(ngModel)]="registrationInfo.password" #password="ngModel" required>
       </p>
-      <p [class.is-hidden]="password.valid" [class.is-danger]="!password.valid&&password.dirty" class="help">Please specify your password, at least three characters</p>
+      <p [class.is-hidden]="password.valid || password.pristine" class="help is-danger">Please specify your password, at least three characters</p>
     </div>
     <div class="field">
       <label class="label">Confirm Password</label>
       <p class="control">
-        <input class="input" [class.is-danger]="(!cp.valid&&cp.dirty)||(cp.dirty&&cp.value!=password.value)" pattern=".{3,}" placeholder="Password" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" #cp="ngModel" required>
+        <input class="input" equalTo="{{registrationInfo.password}}" [class.is-danger]="!cp.valid && cp.value != password.value" pattern=".{3,}" placeholder="Password" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" #cp="ngModel" required>
       </p>
-      <p [class.is-hidden]="cp.valid&&cp.value==password.value" [class.is-danger]="(!cp.valid&&cp.dirty)||(cp.dirty&&cp.value!=password.value)" class="help">Please confirm your password</p>
+      <p [hidden]="cp.valid" class="help is-danger">Please confirm your password</p>
     </div>
     <button [disabled]="!registerationForm.valid" class="button is-info">Register</button>
   </form>

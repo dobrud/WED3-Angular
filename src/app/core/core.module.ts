@@ -7,7 +7,7 @@ import {NavigationService} from './services';
 @NgModule({
   declarations: [ ],
   imports: [ SharedModule ],
-  exports: [ /* nothing to add here */ ],
+  exports: [ ],
   providers: [ /* nothing to add here */ ]
 })
 export class CoreModule {
